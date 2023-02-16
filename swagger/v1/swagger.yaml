@@ -1,0 +1,66 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/users/sign_in":
+    post:
+      summary: Creates a user session
+      tags:
+      - User Sign In
+      parameters: []
+      responses:
+        '201':
+          description: user session created
+        '401':
+          description: unexpected password
+      requestBody:
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/users/sign_up":
+    post:
+      summary: Creates a user
+      tags:
+      - User Sign Up
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '400':
+          description: unmatched password confirmation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - email
+              - password
+              - password_confirmation
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: 0.0.0.0:3000
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
